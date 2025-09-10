@@ -9,8 +9,14 @@ for i in range(5):
 masked1 = 10
 masked2 = 20
 masked3 = "Happy"
-print(x + y)
+print(masked1 + masked2)
 
-if wind == "Happy":
+if masked3 == "Happy":
     print("yay")
+
+for i in range(5):
+    masked1 += 29
+    masked2 -= 29
+
+masked4 = masked3.split()
 

@@ -21,14 +21,21 @@ def maskVariables(file):
             var_value = line.split('=', 1)[1].strip()
             masked_name = f'masked{mask_count}'
             masked = f'{masked_name} = {var_value}'
-            maskedDict[masked_name] = var_name 
+            maskedDict[var_name] = masked_name
             mask_count += 1
         result.append(masked)
     
+    final_result = []
+    for line in result:
+        masked_line = line
+        for var_name, masked_name in maskedDict.items():
+            masked_line = re.sub(rf'\b{var_name}\b', masked_name, masked_line)
+        final_result.append(masked_line)
+
     print(maskedDict)
     
     with open('output.csv', 'w') as out:
-        for line in result:
+        for line in final_result:
             out.write(line + '\n')
 
 maskVariables('file.csv')

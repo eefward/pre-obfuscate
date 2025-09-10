@@ -13,3 +13,9 @@ print(x + y)
 
 if wind == "Happy":
     print("yay")
+
+for i in range(5):
+    x += 29
+    y -= 29
+
+lines = wind.split()
