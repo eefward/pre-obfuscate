@@ -1,0 +1,16 @@
+import time
+
+for i in range(5):
+    print("Hello, World!")
+    time.sleep(1)
+
+# This is a simple Python script that prints "Hello, World!".
+
+masked1 = 10
+masked2 = 20
+masked3 = "Happy"
+print(x + y)
+
+if wind == "Happy":
+    print("yay")
+
