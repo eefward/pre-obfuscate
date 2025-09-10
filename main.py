@@ -21,7 +21,7 @@ def maskVariables(file):
             var_value = line.split('=', 1)[1].strip()
             masked_name = f'masked{mask_count}'
             masked = f'{masked_name} = {var_value}'
-            masked_dict[masked_name] = var_name 
+            maskedDict[masked_name] = var_name 
             mask_count += 1
         result.append(masked)
     
