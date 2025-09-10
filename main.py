@@ -4,9 +4,15 @@ import time
 from faker import Faker
 fake = Faker()
 
-# patterns
+# patterns (PYTHON)
 VarPattern = r'^\s*[a-zA-Z_][a-zA-Z0-9_]*\s*=\s*[^=].*$'
 CommentPattern = r'^\s*#.*$'
+StringPattern = r"(\"[^\"]*\"|'[^']*')"
+
+testMode = True
+if testMode:
+    with open('testcode.csv', 'r') as src, open('file.csv', 'w') as dst:
+        dst.write(src.read())
 
 def maskVariables(file):
     with open(file, 'r') as f:
@@ -70,6 +76,36 @@ def removeComments(file):
         else:
             result.append(line)
     
+    print()
+
+    with open('file.csv', 'w') as out:
+        for line in result:
+            out.write(line + '\n')
+
+def maskStrings(file):
+    def replacer(m):
+        original = m.group(0)[1:-1]
+        return f'bytes.fromhex("{original.encode("utf-8").hex()}").decode()'
+
+    with open(file, 'r') as f:
+        content = f.read()
+
+    lines = content.split('\n')
+    result = []
+
+    matches = [re.search(StringPattern, line) for line in lines]
+    totalStrings = sum(1 for match in matches if match)
+
+    StringCount = 0
+    for line, match in zip(lines, matches):
+        if match:
+            masked_line = re.sub(StringPattern, replacer, line)
+            result.append(masked_line)
+            StringCount += 1
+            print(f"Masked String [{StringCount}/{totalStrings}]", end='\r')
+            time.sleep(0.25)
+        else:
+            result.append(line)
     print()
 
     with open('file.csv', 'w') as out:

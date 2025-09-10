@@ -4,33 +4,21 @@ for i in range(5):
     print("Hello, World!")
     time.sleep(1)
 
-# Stand up perhaps simply share born century.
-# High those investment always.
+# This is a simple Python script that prints "Hello, World!".
+# Hello
 
-masked0 = 10
-masked1 = 20
-masked2 = "Happy"
-print(masked3 + masked3)
+x = 10
+y = 20
+wind = "Happy"
+print(x + y)
 
-# Fear medical study marriage accept table who.
+# if wind is good then good yay
 
-print("# yay")
-
-if masked3 == "Happy":
+if wind == "Happy":
     print("yay")
 
 for i in range(5):
-    masked3 += 29
-    masked3 -= 29
+    x += 29
+    y -= 29
 
-masked3 = masked3.split()
-
-
-
-
-
-
-
-
-
-
+lines = wind.split()
