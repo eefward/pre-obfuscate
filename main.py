@@ -8,6 +8,7 @@ fake = Faker()
 VarPattern = r'^\s*[a-zA-Z_][a-zA-Z0-9_]*\s*=\s*[^=].*$'
 CommentPattern = r'^\s*#.*$'
 StringPattern = r"(\"[^\"]*\"|'[^']*')"
+IntPattern = r'^\s*([a-zA-Z_][a-zA-Z0-9_]*)\s*=\s*(\d+)\s*$'
 
 testMode = True
 if testMode:
@@ -102,8 +103,37 @@ def maskStrings(file):
             masked_line = re.sub(StringPattern, replacer, line)
             result.append(masked_line)
             StringCount += 1
-            print(f"Masked String [{StringCount}/{totalStrings}]", end='\r')
+            print(f"Masked strings [{StringCount}/{totalStrings}]", end='\r')
             time.sleep(0.25)
+        else:
+            result.append(line)
+    print()
+
+    with open('file.csv', 'w') as out:
+        for line in result:
+            out.write(line + '\n')
+
+def maskIntegers(file):
+    with open(file, 'r') as f:
+        content = f.read()
+
+    lines = content.split('\n')
+    result = []
+
+    matches = [re.search(IntPattern, line) for line in lines]
+    totalInts = sum(1 for match in matches if match)
+
+    intCount = 0
+    for line, match in zip(lines, matches):
+        if match:
+            var_name = match.group(1)
+            value = match.group(2)
+            masked = f'{var_name} = int(bytes.fromhex("{str(value).encode("utf-8").hex()}").decode())'
+            intCount += 1
+            
+            print(f"Masked integers [{intCount}/{totalInts}]", end='\r')
+            time.sleep(0.25)
+            result.append(masked)
         else:
             result.append(line)
     print()
@@ -116,6 +146,7 @@ def preObfuscate(file):
     maskVariables(file)
     removeComments(file)
     maskStrings(file)
+    maskIntegers(file)
 
     print("Successfully obfuscated")
 

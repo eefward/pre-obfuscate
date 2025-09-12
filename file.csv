@@ -1,24 +1,12 @@
-import time
+def fibonacci(n):
+    a, b = 0, 1
+masked0 = []
+    for _ in range(n):
+        masked0.append(a)
+        a, b = b, a + b
+    print(bytes.fromhex("4669626f6e61636369206d61736b6564303a").decode(), masked0)
 
-for i in range(5):
-    print("Hello, World!")
-    time.sleep(1)
+fibonacci(10)
 
-# This is a simple Python script that prints "Hello, World!".
-# Hello
 
-x = 10
-y = 20
-wind = "Happy"
-print(x + y)
 
-# if wind is good then good yay
-
-if wind == "Happy":
-    print("yay")
-
-for i in range(5):
-    x += 29
-    y -= 29
-
-lines = wind.split()
